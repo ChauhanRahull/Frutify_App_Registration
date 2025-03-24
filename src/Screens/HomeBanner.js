@@ -5,7 +5,7 @@ const HomeBanner = () => {
     return (
         <View>
             <Image
-                source={{ uri: "https://via.placeholder.com/300x150" }}
+                source={require("../assets/banner1.jpeg")}
                 style={{ width: "100%", height: 150, borderRadius: 10 }}
             />
         </View>

@@ -9,6 +9,7 @@ import FifthScreen from "./Screens/FifthScreen";
 import SixthScreen from "./Screens/SixthScreen";
 import SeventhScreen from "./Screens/SeventhScreen";
 import RegisterScreen from "./Screens/RegisterScreen";
+import ProductDetailScreen from './Screens/ProductDetailScreen';
 
 
 
@@ -30,12 +31,14 @@ function RootStack() {
 
                 }}
             />
-            <Stack.Screen name="Third" component={ThirdScreen} />
+            <Stack.Screen name="Third" component={ThirdScreen} options={{headerShown: false}} />
             <Stack.Screen name="Fourth" component={FourthScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false}} />
             <Stack.Screen name="Fifth" component={FifthScreen} />
             <Stack.Screen name="Sixth" component={SixthScreen} />
             <Stack.Screen name="Seventh" component={SeventhScreen}  />
+            <Stack.Screen name="ProductDetailScreen" component={ProductDetailScreen}  />
+
 
         </Stack.Navigator>
     );
