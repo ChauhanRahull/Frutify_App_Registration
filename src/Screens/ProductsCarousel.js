@@ -1,8 +1,7 @@
 import React from "react";
 import { View, Text, Image, FlatList, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
-
+import Icon from "react-native-vector-icons/MaterialIcons"; // Import Icon from vector icons
 
 const products = [
     {
@@ -26,7 +25,7 @@ const products = [
 ];
 
 const ProductItem = ({ item }) => {
-    const navigation = useNavigation(); // Initialize navigation
+    const navigation = useNavigation();
 
     return (
         <View style={{
@@ -46,7 +45,7 @@ const ProductItem = ({ item }) => {
                     borderRadius: 5,
                     marginTop: 5,
                 }}
-                onPress={() => navigation.navigate("ProductDetailScreen", { item })} // Navigate to details screen
+                onPress={() => navigation.navigate("ProductDetailScreen", { item })}
             >
                 <Text style={{ color: "white" }}>+</Text>
             </TouchableOpacity>
@@ -54,18 +53,38 @@ const ProductItem = ({ item }) => {
     );
 };
 
-
 const ProductsCarousel = () => {
+    const navigation = useNavigation();
+
     return (
-        <FlatList
-            horizontal
-            data={products}
-            renderItem={({ item }) => <ProductItem item={item} />}
-            keyExtractor={(item) => item.id}
-            showsHorizontalScrollIndicator={false}
-        />
+        <View style={{ flex: 1 }}>
+            {/* Cart Button on Top Right */}
+            <View style={{ flexDirection: "row", justifyContent: "flex-end", padding: 10 }}>
+                {/*<TouchableOpacity*/}
+                {/*    onPress={() => navigation.navigate("CartScreen")}*/}
+                {/*    style={{*/}
+                {/*        backgroundColor: "blue",*/}
+                {/*        padding: 10,*/}
+                {/*        borderRadius: 20,*/}
+                {/*        flexDirection: "row",*/}
+                {/*        alignItems: "center",*/}
+                {/*    }}*/}
+                {/*>*/}
+                {/*    <Icon name="shopping-cart" size={24} color="white" />*/}
+                {/*    <Text style={{ color: "white", marginLeft: 5 }}>Cart</Text>*/}
+                {/*</TouchableOpacity>*/}
+            </View>
+
+            {/* Product List */}
+            <FlatList
+                horizontal
+                data={products}
+                renderItem={({ item }) => <ProductItem item={item} />}
+                keyExtractor={(item) => item.id}
+                showsHorizontalScrollIndicator={false}
+            />
+        </View>
     );
 };
 
 export default ProductsCarousel;
-

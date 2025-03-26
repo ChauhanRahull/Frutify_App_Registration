@@ -10,6 +10,8 @@ import SixthScreen from "./Screens/SixthScreen";
 import SeventhScreen from "./Screens/SeventhScreen";
 import RegisterScreen from "./Screens/RegisterScreen";
 import ProductDetailScreen from './Screens/ProductDetailScreen';
+import CartScreen from './Screens/CartScreen';
+import ProductsCarousel from './Screens/ProductsCarousel';
 
 
 
@@ -38,6 +40,9 @@ function RootStack() {
             <Stack.Screen name="Sixth" component={SixthScreen} />
             <Stack.Screen name="Seventh" component={SeventhScreen}  />
             <Stack.Screen name="ProductDetailScreen" component={ProductDetailScreen}  />
+            <Stack.Screen name="Products" component={ProductsCarousel}  />
+            <Stack.Screen name="CartScreen" component={CartScreen}  />
+
 
 
         </Stack.Navigator>

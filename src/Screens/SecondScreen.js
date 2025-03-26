@@ -20,7 +20,7 @@ export default function SecondScreen({ navigation }) {
         const userData = { email, password };
         console.log("Sending Login Request:", userData);  // Debugging log
 
-        const URL = "http://10.0.2.2:3001/login-user";
+        const URL = "http://10.0.2.2:4001/login-user";
 
         axios.post(URL, userData, { timeout: 5000 })
             .then(res => {
