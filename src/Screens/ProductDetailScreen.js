@@ -1,23 +1,25 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../Redux/cartSlice"; // Import Redux action
+import { useNavigation } from "@react-navigation/native"; // Import navigation hook
+import { addToCart } from "../Redux/cartSlice";
 
 const ProductDetailScreen = ({ route }) => {
-    const { item } = route.params; // Get product details
-    const dispatch = useDispatch(); // Initialize Redux dispatch
+    const { item } = route.params;
+    const dispatch = useDispatch();
+    const navigation = useNavigation(); //  Get navigation instance
 
-    // Ensure price is always a valid number (remove any non-numeric characters)
-    const cleanedPrice = typeof item.price === "string" ? item.price.replace(/[^0-9.]/g, "") : item.price;
-    const itemPrice = cleanedPrice && !isNaN(Number(cleanedPrice)) ? Number(cleanedPrice).toFixed(2) : "0.00";
+    // Ensure price is a valid number
+    const itemPrice = item.price && !isNaN(Number(item.price)) ? Number(item.price).toFixed(2) : "0.00";
 
-    // Function to add item to cart ensuring price exists
     const handleAddToCart = () => {
         const product = {
             ...item,
-            price: Number(cleanedPrice) || 0, // Ensure valid price
+            price: item.price && !isNaN(Number(item.price)) ? Number(item.price) : 0,
         };
-        dispatch(addToCart(product)); // Dispatch to Redux
+
+        dispatch(addToCart(product)); //
+        navigation.navigate("HomeScreen"); //
     };
 
     return (
@@ -31,7 +33,6 @@ const ProductDetailScreen = ({ route }) => {
                 {item.name === "Orange" && "Oranges are packed with Vitamin C, making them great for boosting immunity."}
             </Text>
 
-            {/* Add to Cart Button */}
             <TouchableOpacity style={styles.button} onPress={handleAddToCart}>
                 <Text style={styles.buttonText}>Add to Cart</Text>
             </TouchableOpacity>

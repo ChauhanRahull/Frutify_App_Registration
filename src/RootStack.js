@@ -14,7 +14,6 @@ import CartScreen from './Screens/CartScreen';
 import ProductsCarousel from './Screens/ProductsCarousel';
 import React from 'react';
 
-// import CartItem from './components/CartItem';
 
 
 
@@ -44,7 +43,7 @@ function RootStack() {
                     <Stack.Screen name="Products" component={ProductsCarousel}  />
                     <Stack.Screen name="CartScreen" component={CartScreen}  />
                     {/*<Stack.Screen name="CartItem" component={CartItem}  />*/}
-                    <Stack.Screen name="HomeScreen" component={HomeScreen} />
+                    <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false}}/>
                 </Stack.Navigator>
     );
 }
