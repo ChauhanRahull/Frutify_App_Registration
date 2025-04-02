@@ -1,16 +1,30 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import { useCart } from "../Screens/CartContext"; // Import useCart hook
+import { useDispatch } from "react-redux";
+import { addToCart } from "../Redux/cartSlice"; // Import Redux action
 
 const ProductDetailScreen = ({ route }) => {
     const { item } = route.params; // Get product details
-    const { addToCart } = useCart(); // Get addToCart function
+    const dispatch = useDispatch(); // Initialize Redux dispatch
+
+    // Ensure price is always a valid number (remove any non-numeric characters)
+    const cleanedPrice = typeof item.price === "string" ? item.price.replace(/[^0-9.]/g, "") : item.price;
+    const itemPrice = cleanedPrice && !isNaN(Number(cleanedPrice)) ? Number(cleanedPrice).toFixed(2) : "0.00";
+
+    // Function to add item to cart ensuring price exists
+    const handleAddToCart = () => {
+        const product = {
+            ...item,
+            price: Number(cleanedPrice) || 0, // Ensure valid price
+        };
+        dispatch(addToCart(product)); // Dispatch to Redux
+    };
 
     return (
         <View style={styles.container}>
             <Image source={{ uri: item.image }} style={styles.image} />
             <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.price}>{item.price}</Text>
+            <Text style={styles.price}>₹ {itemPrice} / Kg</Text>
             <Text style={styles.description}>
                 {item.name === "Apple" && "Apples are rich in fiber and vitamins, making them a great choice for a healthy snack!"}
                 {item.name === "Banana" && "Bananas are high in potassium and energy, perfect for a quick snack or breakfast."}
@@ -18,7 +32,7 @@ const ProductDetailScreen = ({ route }) => {
             </Text>
 
             {/* Add to Cart Button */}
-            <TouchableOpacity style={styles.button} onPress={() => addToCart(item)}>
+            <TouchableOpacity style={styles.button} onPress={handleAddToCart}>
                 <Text style={styles.buttonText}>Add to Cart</Text>
             </TouchableOpacity>
         </View>
